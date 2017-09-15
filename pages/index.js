@@ -1,4 +1,5 @@
 // Module imports
+import { bindActionCreators } from 'redux'
 import Link from 'next/link'
 import React from 'react'
 
@@ -7,6 +8,8 @@ import React from 'react'
 
 
 // Component imports
+import { actions } from '../store'
+import LoginDialog from '../components/LoginDialog'
 import Page from '../components/Page'
 
 
@@ -26,6 +29,12 @@ class Home extends React.Component {
     Public Methods
   \***************************************************************************/
 
+  componentDidMount () {
+    if (this.props.query.authenticate) {
+      this.showLogin()
+    }
+  }
+
   render () {
     return (
       <section className="hero">
@@ -43,10 +52,31 @@ class Home extends React.Component {
       </section>
     )
   }
+
+  showLogin () {
+    this.props.showDialog({
+      body: (<LoginDialog />),
+      closeIsVisible: true,
+      menuIsVisible: false,
+      title: 'Login',
+    })
+  }
 }
 
 
 
 
 
-export default Page(Home, title)
+const mapDispatchToProps = dispatch => {
+  return {
+    showDialog: bindActionCreators(actions.showDialog, dispatch),
+  }
+}
+
+
+
+
+
+export default Page(Home, title, {
+  mapDispatchToProps,
+})
