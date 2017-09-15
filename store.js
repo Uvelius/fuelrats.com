@@ -1,11 +1,20 @@
 // Module imports
 import {
+  applyMiddleware,
   combineReducers,
+  compose,
   createStore,
-  applyMiddleware
 } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import thunkMiddleware from 'redux-thunk'
+
+
+
+
+
+// Redux DevTools?
+import { persistState } from 'redux-devtools'
+import ReduxDevTools from './components/ReduxDevTools'
 
 
 
@@ -51,5 +60,22 @@ export const actions = Object.assign(
 
 
 export const initStore = (initialState = initialState) => {
-  return createStore(reducer, initialState, composeWithDevTools(applyMiddleware(thunkMiddleware)))
+  return createStore(reducer, initialState, compose(
+    applyMiddleware(thunkMiddleware),
+    ReduxDevTools.instrument()
+//    persistState(getDebugSessionKey())
+  ))
+}
+
+
+
+
+
+function getDebugSessionKey () {
+  if (window) {
+    const matches = window.location.href.match(/[?&]debug_session=([^&#]+)\b/)
+    return (matches && matches.length > 0) ? matches[1] : null
+  }
+
+  return null
 }

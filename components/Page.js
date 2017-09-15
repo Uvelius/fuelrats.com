@@ -13,6 +13,7 @@ import {
   actions,
   initStore,
 } from '../store'
+import ReduxDevTools from './ReduxDevTools'
 import Dialog from './Dialog'
 import LoginDialog from './LoginDialog'
 import Head from './Head'
@@ -78,6 +79,8 @@ export default (Component, title = 'Untitled', reduxOptions = {}) => {
             </main>
 
             <Dialog />
+
+            <ReduxDevTools />
           </div>
         </Provider>
       )
