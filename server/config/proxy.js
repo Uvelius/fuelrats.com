@@ -63,4 +63,18 @@ module.exports = function (koa, config) {
   koa.use(proxy('/wp-content', {
     target: config.wordpress.url,
   }))
+
+
+
+
+
+  /******************************************************************************\
+    Proxy Confluence API requests
+  \******************************************************************************/
+
+  koa.use(proxy('/confluence-api', {
+    rewrite: path => path.replace(/^\/confluence-api/, `/rest/api/content?title=`),
+    secure: true,
+    target: config.confluence.url,
+  }))
 }
