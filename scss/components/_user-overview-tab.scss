@@ -1,6 +1,7 @@
 .user-overview-tab {
   align-items: flex-start;
   display: flex;
+  flex-wrap: wrap;
 
   .panel {
     margin-bottom: 2rem;

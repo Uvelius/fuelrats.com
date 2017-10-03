@@ -12,6 +12,46 @@ import actionTypes from '../actionTypes'
 
 
 
+export const addNickname = (nickname, password) => async dispatch => {
+  dispatch({ type: actionTypes.ADD_NICKNAME })
+
+  try {
+    let token = localStorage.getItem('access_token')
+
+    let response = await fetch(`/api/nicknames`, {
+      body: JSON.stringify({
+        nickname,
+        password,
+      }),
+      headers: new Headers({
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      }),
+      method: 'post',
+    })
+
+    response = await response.json()
+
+    dispatch({
+      status: 'success',
+      type: actionTypes.ADD_NICKNAME,
+      payload: response,
+    })
+
+  } catch (error) {
+    dispatch({
+      status: 'error',
+      type: actionTypes.ADD_NICKNAME,
+    })
+
+    console.log(error)
+  }
+}
+
+
+
+
+
 export const changePassword = (currentPassword, newPassword) => async dispatch => {
   dispatch({ type: actionTypes.CHANGE_PASSWORD })
 

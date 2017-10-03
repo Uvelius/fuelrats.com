@@ -7,6 +7,10 @@ import initialState from '../initialState'
 
 export default function (state = initialState.user, action) {
   switch (action.type) {
+    case actionTypes.ADD_NICKNAME:
+      console.log(state)
+      return state
+
     case actionTypes.CREATE_RAT:
     case actionTypes.GET_RAT:
       if (action.status === 'success') {
