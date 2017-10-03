@@ -19,7 +19,7 @@
   @media only screen and (max-width: 768px) {
     flex-direction: column;
 
-    .panel {
+    .panel:nth-of-type(n) {
       margin-left: 0;
       margin-right: 0;
       width: 100%;
