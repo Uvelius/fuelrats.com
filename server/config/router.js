@@ -38,6 +38,7 @@ module.exports = function (nextjs, koa, config) {
     '/paperwork',
     '/paperwork/*',
     '/profile',
+    '/authorize'
   ]
 
   router.get(authenticatedRoutes, async (ctx, next) => {
@@ -45,7 +46,7 @@ module.exports = function (nextjs, koa, config) {
       await next()
 
     } else {
-      await ctx.redirect(`/?authenticate=true&destination=${ctx.request.url}`)
+      await ctx.redirect(`/?authenticate=true&destination=${encodeURIComponent(ctx.request.url)}`)
     }
   })
 
@@ -70,6 +71,16 @@ module.exports = function (nextjs, koa, config) {
   router.get('/get-help', async (ctx, next) => {
     ctx.status = 302
     await ctx.redirect(`/i-need-fuel`)
+  })
+
+  router.get('/privacy-policy', async (ctx, next) => {
+    ctx.status = 302
+    await ctx.redirect(`https://confluence.fuelrats.com/display/FRKB/Privacy+Policy`)
+  })
+
+  router.get('/terms-of-service', async (ctx, next) => {
+    ctx.status = 302
+    await ctx.redirect(`https://confluence.fuelrats.com/display/FRKB/Terms+of+Service`)
   })
 
 
